@@ -3,7 +3,7 @@
 import random
 import re
 import matplotlib.pyplot as plt
-
+import statistics
 
 def simulate_choices(n, readers):
     output = ""
@@ -180,6 +180,20 @@ def extract_experiments(n_simulations):
     return experiment_dict
 
 
+def generate_mode(n_simulations, books):
+    experiment_dict = extract_experiments(n_simulations)
+    choosed_ids = list()
+
+    for _, books_ids in experiment_dict.items():
+        for idx, book_id in enumerate(books_ids):
+            choosed_ids.append(book_id)
+
+    mode_id = statistics.mode(choosed_ids)
+    mode_book = next((book for book in books if book.id == mode_id), None)
+
+    return mode_book
+
+
 if __name__ == '__main__':
     with open('book_titles.txt') as book_titles_file:
         books = [Book(title.strip()) for title in book_titles_file.readlines()]
@@ -196,12 +210,13 @@ if __name__ == '__main__':
     print('\n' * 20)
     while menu_choice != 0:
 
-        print("Digite 1 para imprimir as probabilidades de escolha de todos leitores")
-        print("Digite 2 para simular o experimento aleatório da escolha dos leitores")
-        print("Digite 3 para entrar no menu de frequências")
-        print("Digite 0 para fechar o programa")
+        print("Digite 1 para imprimir as probabilidades de escolha de todos leitores.")
+        print("Digite 2 para simular o experimento aleatório da escolha dos leitores.")
+        print("Digite 3 para entrar no menu de frequências.")
+        print("Digite 4 para entrar no menu de estatística descritiva.")
+        print("Digite 0 para fechar o programa.")
 
-        menu_choice = int_input("Digite sua escolha: ")
+        menu_choice = int_input("Digite sua escolha: ", interval=(0, 4))
         print("\n")
 
         if menu_choice == 1:
@@ -237,5 +252,19 @@ if __name__ == '__main__':
                 elif menu_choice == 0:
                     menu_choice = -1
                     break
+        elif menu_choice == 4:
+            print("\n" * 5)
 
+            while True:
+                print("\n\n")
+                print("Digite 1 para gerar a moda do experimento.")
+                print("DIgite 0 para sair do menu de estatística descritiva.")
+                menu_choice = int_input("Digite sua escolha: ", interval=(0, 1))
+                print("\n\n")
+
+                if menu_choice == 1:
+                    print("A moda do experimento é o livro: " + str(generate_mode(n_simulations, books)))
+                elif menu_choice == 0:
+                    menu_choice = -1
+                    break
         print('\n' * 20)

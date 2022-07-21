@@ -21,6 +21,9 @@ sudo apt install python3-tk
 ```
 
 ## Instruções
+Adicione novos livros modificando o arquivo 'book_titles.txt' na raiz do projeto. Siga o padrão do arquivo, não deixe linhas em branco.  
+Você pode usar este site https://www.fantasynamegenerators.com/book-title-generator.php para gerar títulos.
+  
 O programa possui uma linha de comando interativa que o guiará através da execução.  
 Caso você precise alterar os resultados do experimento procure pelo arquivo "output.txt" na raiz do projeto.
 Há um número entre parênteses após o nome do livro que indica o id do livro escolhido. Troque-o se precisar forjar
